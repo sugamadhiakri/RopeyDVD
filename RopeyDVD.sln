@@ -1,0 +1,25 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.1.32328.378
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RopeyDVD", "RopeyDVD.csproj", "{08F23BB5-8E43-4A7E-B7E2-F5E25782486B}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{08F23BB5-8E43-4A7E-B7E2-F5E25782486B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{08F23BB5-8E43-4A7E-B7E2-F5E25782486B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{08F23BB5-8E43-4A7E-B7E2-F5E25782486B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{08F23BB5-8E43-4A7E-B7E2-F5E25782486B}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {641EAEA8-28DF-4AF9-B4FC-30CC0AE152ED}
+	EndGlobalSection
+EndGlobal
