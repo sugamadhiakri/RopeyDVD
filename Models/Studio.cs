@@ -3,7 +3,9 @@
     public class Studio
     {
         public int StudioId { get; set; }  
-        public string StudioName { get; set; } = string.Empty; 
+        public string StudioName { get; set; } 
+
+        public virtual ICollection<DVDTitle> DVDTitles { get; set; }
 
     }
 }
