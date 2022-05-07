@@ -1,0 +1,45 @@
+﻿@using RopeyDVD.Areas.Identity.Data
+@*
+    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+*@
+
+@model EditUserViewModel
+
+
+@{
+    
+}
+
+
+  <main>
+    <div class="py-5 text-center" bis_skin_checked="1">
+      <h2>Change Password</h2>
+    </div>
+
+    <div class="row g-5" bis_skin_checked="1">
+
+        @using (Html.BeginForm("OnPost", "User")){
+            @Html.HiddenFor(h => @Model.Id);
+            @Html.HiddenFor(h => @Model.Email);
+          <div class="row g-3" bis_skin_checked="1">
+
+            <div class="col-12" bis_skin_checked="1">
+              <label asp-for="Email" class="form-label"></label>
+              <input asp-for="Email" class="form-control" value="@Model.Email" disabled>
+            </div>
+
+ 
+            <div class="col-12" bis_skin_checked="1">
+              <label asp-for="Password" class="form-label"></label>
+              <input asp-for="Password" type="text" class="form-control" required="" value="@Model.Password">
+            </div>
+
+          </div> 
+
+          <hr class="my-4">
+
+          <button class="w-100 btn btn-primary btn-lg" type="submit">Save</button>
+   }
+    </div>
+  </main>
+
