@@ -10,6 +10,11 @@
 
 <div class="text-center">
     <h1 class="display-4">Users</h1>
+
+    <div class="text-start">
+        <a asp-controller="User" asp-action="Create">Create User</a>
+    </div>
+
     @if(@Model != null && @Model.Any())
     {
         <table class="table">
@@ -27,7 +32,7 @@
                       <th scope="row">@user.Id</th>
                       <td>@user.Email</td>
                       <td class="text-center">
-                          <a asp-controller="User" asp-action="Edit" asp-route-id="@user.Id">Change Password</a>
+                          <a asp-controller="User" asp-action="Edit" asp-route-id="@user.Id">Edit</a>
                           <div class="vr"></div>
                           <a asp-controller="User" asp-action="Delete" asp-route-id="@user.Id">Delete</a>
                       </td>

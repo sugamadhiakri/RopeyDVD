@@ -50,7 +50,7 @@ void AddAuthorizationPolicies(IServiceCollection services)
     {
 
         options.AddPolicy("RequireAdmin", policy => policy.RequireRole("Administrator"));
-        options.AddPolicy("RequireAssistant", policy => policy.RequireRole("Assistant"));
+        options.AddPolicy("AssistantOrAdmin", policy => policy.RequireAuthenticatedUser());
 
     });
 }
