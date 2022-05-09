@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using RopeyDVD.Data;
 
@@ -11,9 +12,10 @@ using RopeyDVD.Data;
 namespace RopeyDVD.Migrations
 {
     [DbContext(typeof(RopeyDVDContext))]
-    partial class RopeyDVDContextModelSnapshot : ModelSnapshot
+    [Migration("20220508083735_Updated-onLoan-logic")]
+    partial class UpdatedonLoanlogic
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -258,6 +260,68 @@ namespace RopeyDVD.Migrations
                     b.HasKey("ActorId");
 
                     b.ToTable("Actor");
+
+                    b.HasData(
+                        new
+                        {
+                            ActorId = 1,
+                            Firstname = "Rajesh",
+                            Lastname = "Hamal"
+                        },
+                        new
+                        {
+                            ActorId = 2,
+                            Firstname = "Salman",
+                            Lastname = "Khan"
+                        },
+                        new
+                        {
+                            ActorId = 3,
+                            Firstname = "Anamol",
+                            Lastname = "Kc"
+                        },
+                        new
+                        {
+                            ActorId = 4,
+                            Firstname = "David",
+                            Lastname = "Rimal"
+                        },
+                        new
+                        {
+                            ActorId = 5,
+                            Firstname = "Pragya",
+                            Lastname = "Bhandari"
+                        },
+                        new
+                        {
+                            ActorId = 6,
+                            Firstname = "Miraj",
+                            Lastname = "Pokhrel"
+                        },
+                        new
+                        {
+                            ActorId = 7,
+                            Firstname = "Sujan",
+                            Lastname = "Giri"
+                        },
+                        new
+                        {
+                            ActorId = 8,
+                            Firstname = "Rani",
+                            Lastname = "Poudel"
+                        },
+                        new
+                        {
+                            ActorId = 9,
+                            Firstname = "Gopal",
+                            Lastname = "Adhikari"
+                        },
+                        new
+                        {
+                            ActorId = 10,
+                            Firstname = "Anurag",
+                            Lastname = "Dhungana"
+                        });
                 });
 
             modelBuilder.Entity("RopeyDVD.Models.DVDCategory", b =>
@@ -329,10 +393,6 @@ namespace RopeyDVD.Migrations
 
                     b.Property<int>("StudioId")
                         .HasColumnType("int");
-
-                    b.Property<string>("Title")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
 
                     b.HasKey("DVDId");
 

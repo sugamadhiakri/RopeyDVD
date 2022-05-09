@@ -1,0 +1,71 @@
+﻿@model IEnumerable<RopeyDVD.Models.Loan>
+
+@{
+    ViewData["Title"] = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h1>Index</h1>
+
+<p>
+    <a asp-action="Create">Create New</a>
+</p>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                #
+            </th>
+            <th>
+                DVD Title
+            </th>
+            <th>
+                DVD Copy
+            </th>
+            <th>
+                Loaned By
+            </th>
+            <th>
+                Loaned At
+            </th>
+            <th>
+                Due Date
+            </th>
+            <th>
+                Returned Date
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model) {
+        <tr>
+            <td>
+                @item.LoanId
+            </td>
+            <td>
+                @item.Copy.DVDTitle.Title
+            </td>
+            <th>
+                @item.Copy.CopyId
+            </th>
+            <td>
+                @item.Member.FirstName @item.Member.LastName
+            </td>
+            <th>
+                @item.DateOut
+            </th>
+            <th>
+                @item.DateDue
+            </th>
+                @if(item.DateReturned != null)
+                {
+                    <th>@item.DateReturned</th>
+                } else
+                {
+                    <th>Null</th>
+                }
+            </tr>
+}
+    </tbody>
+</table>

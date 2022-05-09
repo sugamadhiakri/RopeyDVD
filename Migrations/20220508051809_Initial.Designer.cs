@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using RopeyDVD.Data;
 
@@ -11,9 +12,10 @@ using RopeyDVD.Data;
 namespace RopeyDVD.Migrations
 {
     [DbContext(typeof(RopeyDVDContext))]
-    partial class RopeyDVDContextModelSnapshot : ModelSnapshot
+    [Migration("20220508051809_Initial")]
+    partial class Initial
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -294,9 +296,6 @@ namespace RopeyDVD.Migrations
                     b.Property<DateTime>("DatePurchased")
                         .HasColumnType("Date");
 
-                    b.Property<bool>("IsLoaned")
-                        .HasColumnType("bit");
-
                     b.HasKey("CopyId");
 
                     b.HasIndex("DVDTitleDVDId");
@@ -330,10 +329,6 @@ namespace RopeyDVD.Migrations
                     b.Property<int>("StudioId")
                         .HasColumnType("int");
 
-                    b.Property<string>("Title")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
                     b.HasKey("DVDId");
 
                     b.HasIndex("CategoryId");
@@ -362,7 +357,7 @@ namespace RopeyDVD.Migrations
                     b.Property<DateTime>("DateOut")
                         .HasColumnType("Date");
 
-                    b.Property<DateTime?>("DateReturned")
+                    b.Property<DateTime>("DateReturned")
                         .HasColumnType("Date");
 
                     b.Property<int>("LoanTypeId")

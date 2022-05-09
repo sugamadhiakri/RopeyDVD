@@ -1,0 +1,30 @@
+﻿@model SearchString
+
+@{
+    ViewData["Title"] = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h1 class="text-center">DVD Titles Search</h1>
+
+
+@using (Html.BeginForm("Search", "DVDTitles")){
+        <div class="input-group">
+            <input asp-for="SearchValue" class="form-control rounded" placeholder="Search All DVD by Actor" />
+            <button type="submit" class="btn btn-outline-primary">search</button>
+        </div>
+}
+
+<hr />
+
+@using (Html.BeginForm("SearchOnShelve", "DVDTitles")){
+        <div class="input-group">
+            <input asp-for="SearchValue" class="form-control rounded" placeholder="Search DVD on shelve by Actor" />
+            <button type="submit" class="btn btn-outline-primary">search</button>
+        </div>
+}
+
+
+
+
+

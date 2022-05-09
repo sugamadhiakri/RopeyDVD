@@ -8,7 +8,7 @@ using System.ComponentModel.DataAnnotations;
 
 namespace RopeyDVD.Controllers
 {
-    
+
     public class UserController : Controller
     {
         private readonly RopeyDVDContext _context;
@@ -19,7 +19,7 @@ namespace RopeyDVD.Controllers
 
         public UserController(RopeyDVDContext context,
                               UserManager<RopeyDVDUser> userManager,
-                              IUserStore<RopeyDVDUser> userStore, 
+                              IUserStore<RopeyDVDUser> userStore,
                               ILogger<UserController> logger)
         {
             _context = context;
@@ -55,7 +55,7 @@ namespace RopeyDVD.Controllers
             {
                 var checkUser = await _userManager.FindByNameAsync(model.Email);
 
-                if(checkUser != null)
+                if (checkUser != null)
                 {
                     ModelState.AddModelError("CustomError", "User already exists with that email.");
                     return View(model);
@@ -85,10 +85,10 @@ namespace RopeyDVD.Controllers
         [Authorize(Policy = "RequireAdmin")]
         public IActionResult Edit(string id)
         {
-            
+
             var user = _context.Users.FirstOrDefault(u => u.Id == id);
 
-            if(user == null)
+            if (user == null)
             {
                 return View("Error");
             }
@@ -106,21 +106,21 @@ namespace RopeyDVD.Controllers
         [Authorize(Policy = "RequireAdmin")]
         public async Task<IActionResult> Delete(string id)
         {
-            
-                var user = _context.Users.FirstOrDefault(u => u.Id == id);
 
-                if (user == null)
-                {
-                    return BadRequest();
-                }
+            var user = _context.Users.FirstOrDefault(u => u.Id == id);
 
-                var result = await _userManager.DeleteAsync(user);
+            if (user == null)
+            {
+                return BadRequest();
+            }
 
-                if (!result.Succeeded)
-                {
-                    return BadRequest();
-                }
-            
+            var result = await _userManager.DeleteAsync(user);
+
+            if (!result.Succeeded)
+            {
+                return BadRequest();
+            }
+
 
             return RedirectToAction("Index");
         }
@@ -133,7 +133,7 @@ namespace RopeyDVD.Controllers
 
 
                 RopeyDVDUser otherUser = await _userManager.FindByEmailAsync(user.Email);
-                
+
                 // If the other user has a different ID then the email is already taken.
                 if (otherUser != null && otherUser.Id != ropeyUser.Id)
                 {

@@ -1,10 +1,15 @@
-﻿namespace RopeyDVD.Models
+﻿using System.ComponentModel.DataAnnotations;
+
+namespace RopeyDVD.Models
 {
     public class LoanType
     {
-        public int LoanId { get; set; }
-        public string Type { get; set; } = string.Empty;
+        [Key]
+        public int LoanTypeId { get; set; }
+        public string Type { get; set; } = String.Empty;
         public int Duration { get; set; }
+
+        public IEnumerable<Loan> Loans { get; set; }
 
     }
 }

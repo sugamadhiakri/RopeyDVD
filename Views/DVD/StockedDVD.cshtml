@@ -1,0 +1,21 @@
+﻿@*
+    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+*@
+@{
+}
+
+@model DVDTitle
+
+<div class="text-center">
+    @using (Html.BeginForm("StockedDVD", "DVD")){
+        <div class="input-group">
+            <input type="search" class="form-control rounded" placeholder="Actor's Last Name" aria-label="Search" aria-describedby="search-addon" />
+            <button type="button" class="btn btn-outline-primary">search</button>
+        </div>
+    }
+
+    @if(@Model != null)
+    {
+        
+    }
+</div>

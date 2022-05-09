@@ -1,0 +1,45 @@
+﻿@*
+    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+*@
+
+@model IEnumerable<DVDTitle>
+@{
+}
+
+@if(@Model != null && @Model.Any())
+    {
+        <table class="table">
+          <thead>
+            <tr>
+              <th scope="col">#</th>
+              <th scope="col">DVD Title</th>
+              <th scope="col">Producer</th>
+              <th scope="col">Studio</th>
+              <th scope="col">Date Released</th>
+              <th scope="col">Actors</th>
+            </tr>
+          </thead>
+          <tbody>
+                @foreach(var dvd in Model)
+                {
+                    var actors = dvd.Actors.ToList();
+                    actors.Sort(delegate (Actor c1, Actor c2) { return c1.Lastname.CompareTo(c2.Lastname); });
+                    string actorString = string.Empty;
+                
+                foreach(var a in actors)
+                {
+                    actorString += a.Firstname + " " + a.Lastname + ",";
+                }
+
+                    <tr>
+                      <th scope="row">@dvd.DVDId</th>
+                      <td>@dvd.Title</td>
+                      <td>@dvd.Producer.ProducerName</td>
+                      <td>@dvd.Studio.StudioName</td>
+                      <td>@dvd.DateReleased</td>
+                      <td>@actorString</td>
+                    </tr>
+                }
+          </tbody>
+        </table>
+    }

@@ -1,0 +1,49 @@
+﻿@model LoanInputModel
+
+@{
+    ViewData["Title"] = "Create";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h1>Create</h1>
+
+<h4>Loan</h4>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+
+        @using (Html.BeginForm("Create", "Loans"))
+        {
+            <div class="row g-3" bis_skin_checked="1">
+                <div class="col-sm-6" bis_skin_checked="1">
+                    <label asp-for="MemberId" class="form-label">Member Number</label>
+                    <input asp-for="MemberId" type="text" class="form-control" placeholder="" required="">
+
+                </div>
+
+                <div class="col-sm-6" bis_skin_checked="1">
+                    <label asp-for="CopyId" class="form-label">Copy Number</label>
+                    <input type="text" class="form-control" placeholder="" required="">
+
+                </div>
+
+                <div class="col-md-5" bis_skin_checked="1">
+                    <label asp-for="loanType" class="form-label">Loan Type</label>
+                    <select asp-for="loanType" class="form-select" required="">
+                        <option value="">Choose...</option>
+                        <option value="short">Short</option>
+                        <option value="long">Long</option>
+                    </select>
+                </div>
+                <div class="text-danger">
+                    @Html.ValidationMessage("CustomError")
+                </div>
+                <button class="w-100 btn btn-primary btn-lg" type="submit">Loan</button>
+            </div>
+        }
+    </div>
+</div>
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}
