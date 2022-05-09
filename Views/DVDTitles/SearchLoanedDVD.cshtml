@@ -1,0 +1,53 @@
+﻿@*
+    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+*@
+@model SearchString;
+@{
+    Dictionary<DVDCopy, DateTime> loanedDvds = (Dictionary<DVDCopy, DateTime>)ViewData["loanedDvds"];
+
+}
+
+
+<h1>Search Loaned DVDs By Member's Last Name in past 31 days.</h1>
+
+
+@using (Html.BeginForm("SearchLoanedDVD", "DVDTitles")){
+        <div class="input-group">
+            <input asp-for="SearchValue" class="form-control rounded" placeholder="Search Actor's Last Name'" />
+            <button type="submit" class="btn btn-outline-primary">search</button>
+        </div>
+}
+
+<hr />
+
+
+@if(loanedDvds != null && loanedDvds.Any())
+    {
+        <table class="table">
+          <thead>
+            <tr>
+              <th scope="col">DVD Title</th>
+              <th scope="col">DVD Copy Number</th>
+              <th scope="col">Date Out</th>
+              <th scope="col">Loan Status</th>
+            </tr>
+          </thead>
+          <tbody>
+                @foreach(KeyValuePair<DVDCopy, DateTime> copy in loanedDvds)
+            {
+                <tr>
+                      <th scope="row">@copy.Key.DVDTitle.Title</th>
+                      <td>@copy.Key.CopyId</td>
+                      <td>@copy.Value</td>
+                    @if (@copy.Key.IsLoaned)
+                    {
+                        <td>On Loan</td>
+                    } else
+                    {
+                        <td>On Shelve</td>
+                    }
+                </tr>
+                }
+          </tbody>
+        </table>
+    }

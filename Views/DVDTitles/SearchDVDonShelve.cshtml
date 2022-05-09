@@ -1,0 +1,48 @@
+﻿ @*
+    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+*@
+
+@model Dictionary<DVDTitle, int>;
+
+@{
+}
+
+<h1>DVDs on Shelve</h1>
+
+<hr />
+
+<a asp-action="Index">Back</a>
+
+@if(@Model != null && @Model.Any())
+    {
+        <table class="table">
+          <thead>
+            <tr>
+              <th scope="col">#</th>
+              <th scope="col">DVD Title</th>
+              <th scope="col">No. of Copies</th>
+              <th scope="col">Actors</th>
+            </tr>
+          </thead>
+          <tbody>
+                @foreach(KeyValuePair<DVDTitle, int> dvd in Model)
+                {
+
+                var actors = dvd.Key.Actors;
+                string actorString = string.Empty;
+
+                foreach(var a in actors)
+                {
+                    actorString += a.Firstname + " " + a.Lastname + ",";
+                }
+
+                    <tr>
+                      <th scope="row">@dvd.</th>
+                      <td>@dvd.Key.Title</td>
+                      <td>@dvd.Value</td>
+                      <td>@actorString</td>
+                    </tr>
+                }
+          </tbody>
+        </table>
+    }

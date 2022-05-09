@@ -9,11 +9,11 @@ namespace RopeyDVD.Models
         public int CopyId { get; set; }
 
         [Column(TypeName = "Date")]
-        public DateTime DatePurchased { get; set; }
+        public DateTime DatePurchased { get; set; }  
 
-        [ForeignKey("DVDTitle")]
-        public int DVDId { get; set; }  
+        public bool IsLoaned { get; set; }
         public virtual DVDTitle DVDTitle { get; set; }
+
         public virtual IEnumerable<Loan> Loans { get; set; }
 
     }

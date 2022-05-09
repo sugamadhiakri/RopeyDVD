@@ -1,0 +1,65 @@
+﻿@model IEnumerable<RopeyDVD.Models.Member>
+
+@{
+    ViewData["Title"] = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    var loans = (IEnumerable<Loan>) ViewData["loans"];
+}
+
+<h1>Index</h1>
+
+<p>
+    <a asp-action="Create">Create New</a>
+</p>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                First Name
+            </th>
+            <th>
+                Last Name
+            </th>
+            <th>
+                Membership
+            </th>
+            <th>
+                Loan Count
+            </th>
+            <th>
+                Status
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model) {
+
+            var limit = item.MembershipCategory.MembershipCategoryTotalLoans;
+            var loanCount = loans.Where(l => l.DateReturned == null && l.Member.MemberId == item.MemberId).Count();
+            <tr>
+            <td>
+                @item.FirstName
+            </td>
+            <td>
+                @item.LastName
+
+            </td>
+            <td>
+                @item.MembershipCategory.MembershipCategoryDescription
+            </td>
+            <td>
+                @loanCount
+
+            </td>
+                @if(loanCount > limit)
+                {
+                    <td class="text-danger">Too Many DVDs</td>
+                } else
+                {
+                    <td></td>
+                }
+        </tr>
+}
+    </tbody>
+</table>

@@ -13,16 +13,16 @@ namespace RopeyDVD.Models
         public DateTime DateDue { get; set; }
 
         [Column(TypeName = "Date")]
-        public DateTime DateReturned { get; set; }
+        public DateTime? DateReturned { get; set; }
 
-        [ForeignKey("LoanType")]
+/*        [ForeignKey("LoanType")]
         public int LoanTypeID { get; set; }
 
         [ForeignKey("DVDCopy")]
         public int CopyId { get; set; }
 
         [ForeignKey("Member")]
-        public int MemberId { get; set; }
+        public int MemberId { get; set; }*/
         public virtual LoanType LoanType { get; set; }
 
         public virtual DVDCopy Copy { get; set; }

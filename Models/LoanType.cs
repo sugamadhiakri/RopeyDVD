@@ -6,8 +6,10 @@ namespace RopeyDVD.Models
     {
         [Key]
         public int LoanTypeId { get; set; }
-        public string Type { get; set; }
+        public string Type { get; set; } = String.Empty;
         public int Duration { get; set; }
+
+        public IEnumerable<Loan> Loans { get; set; }
 
     }
 }
