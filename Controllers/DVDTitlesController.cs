@@ -61,6 +61,7 @@ namespace RopeyDVD.Controllers
         }
 
         // Question 3
+        [Authorize(Policy = "AssistantOrAdmin")]
         public async Task<IActionResult> SearchLoanedDVD(SearchString searchTerm)
         {
             var loanedDvds = await LoanedDVD(searchTerm.SearchValue);
@@ -71,6 +72,7 @@ namespace RopeyDVD.Controllers
         }
 
         // Question 4
+        [Authorize(Policy = "AssistantOrAdmin")]
         public async Task<IActionResult> AllDVDs()
         {
             var allDvds = await GetAllDVDSortedByReleaseDate();

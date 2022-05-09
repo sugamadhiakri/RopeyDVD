@@ -22,19 +22,7 @@
                          <li class="nav-item">
                             <a class="nav-link text-dark" asp-controller="DVDTitles" asp-action="Index">Search DVDs</a>
                         </li>
-                        <li class="nav-item">
-                            <a class="nav-link text-dark" asp-controller="DVDTitles" asp-action="SearchLoanedDVD">Search Loaned DVDs</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link text-dark" asp-controller="DVDTitles" asp-action="AllDVDs">All DVDs</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Members" asp-action="Index">Member</a>
-                        </li>
-         
-                         <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Loans" asp-action="Index">Loan</a>
-                        </li>
+                        <partial name="_NavbarPartial" />
                     </ul>
                 </div>
                 <partial name="_LoginPartial" />

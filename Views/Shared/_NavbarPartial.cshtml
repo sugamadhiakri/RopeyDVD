@@ -1,0 +1,27 @@
+﻿@using Microsoft.AspNetCore.Identity
+@using RopeyDVD.Areas.Identity.Data
+
+@inject SignInManager<RopeyDVDUser> SignInManager
+@inject UserManager<RopeyDVDUser> UserManager
+
+<ul class="navbar-nav">
+    @if (SignInManager.IsSignedIn(User))
+    {
+        <li class="nav-item">
+            <a class="nav-link text-dark" asp-controller="DVDTitles" asp-action="SearchLoanedDVD">Search Loaned DVDs</a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link text-dark" asp-controller="DVDTitles" asp-action="AllDVDs">All DVDs</a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link text-dark" asp-area="" asp-controller="Members" asp-action="Index">Member</a>
+        </li>
+
+        <li class="nav-item">
+            <a class="nav-link text-dark" asp-area="" asp-controller="Loans" asp-action="Index">Loan</a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link text-dark" asp-area="" asp-controller="User" asp-action="Index">Users</a>
+        </li>
+    }
+</ul>
