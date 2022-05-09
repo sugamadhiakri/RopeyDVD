@@ -32,12 +32,12 @@ namespace RopeyDVD.Controllers
         {
             // get every dvds
             var dvds = await GetDVDByActorsLastName(searchTerm.SearchValue);
-            
+
             // return all the saved dvds
             return View("SearchDVDList", dvds);
         }
 
-        
+
         // Question 2
         public async Task<IActionResult> SearchOnShelve(SearchString searchTerm)
         {
@@ -49,7 +49,7 @@ namespace RopeyDVD.Controllers
             foreach (var dvd in dvds)
             {
                 int c = GetNumberOfCopiesOnShelves(dvd);
-                if(c > 0)
+                if (c > 0)
                 {
                     ourDvd.Add(dvd, c);
                     continue;
@@ -102,14 +102,14 @@ namespace RopeyDVD.Controllers
             return dvds;
         }
 
-        private  int GetNumberOfCopiesOnShelves(DVDTitle dvd)
+        private int GetNumberOfCopiesOnShelves(DVDTitle dvd)
         {
             var copies = _context.DVDCopy.Where(c => c.DVDTitle.DVDId == dvd.DVDId && !c.IsLoaned).Count();
 
             return copies;
         }
 
-        
+
 
         private async Task<IEnumerable<DVDTitle>> GetAllDVDSortedByReleaseDate()
         {

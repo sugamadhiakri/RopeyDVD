@@ -58,10 +58,14 @@
             <th>
                 @item.DateDue
             </th>
-            <th>
-                @item.DateReturned
-            </th>
-        </tr>
+                @if(item.DateReturned != null)
+                {
+                    <th>@item.DateReturned</th>
+                } else
+                {
+                    <th>Null</th>
+                }
+            </tr>
 }
     </tbody>
 </table>
