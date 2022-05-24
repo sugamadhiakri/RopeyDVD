@@ -15,10 +15,12 @@ namespace RopeyDVD.Controllers
     public class LoansController : Controller
     {
         private readonly RopeyDVDContext _context;
+        private readonly ILogger<LoansController> _logger;
 
-        public LoansController(RopeyDVDContext context)
+        public LoansController(RopeyDVDContext context, ILogger<LoansController> logger)
         {
             _context = context;
+            _logger = logger;
         }
 
         // GET: Loans
@@ -26,26 +28,45 @@ namespace RopeyDVD.Controllers
         public async Task<IActionResult> Index()
         {
 
-            return View(await _context.Loan.Include("LoanType").Include("Member").Include(loan => loan.Copy).ThenInclude(copy => copy.DVDTitle).ToListAsync());
+            return View(await _context.Loan.Where(loan => loan.DateReturned == null).Include("LoanType").Include("Member").Include(loan => loan.Copy).ThenInclude(copy => copy.DVDTitle).ToListAsync());
         }
 
-        // GET: Loans/Details/5
         [Authorize(Policy = "AssistantOrAdmin")]
-        public async Task<IActionResult> Details(int? id)
+        public async Task<IActionResult> LoanByCopyId(SearchInt searchInt)
+        {
+            if (ModelState.IsValid && searchInt.SearchValue != 0)
+            {
+                var loan = await _context.Loan.Include("Member").Include(loan => loan.Copy).ThenInclude(copy => copy.DVDTitle).Where(loan => loan.Copy.CopyId == searchInt.SearchValue).OrderByDescending(loan => loan.DateOut).FirstOrDefaultAsync();
+
+                if (loan == null)
+                {
+                    ModelState.AddModelError("CustomError", "Either That DVD Copy doesn't exist or it has not been loaned yet!");
+                }
+
+                ViewData["Loan"] = loan;
+            }
+            return View();
+        }
+
+       public async Task<IActionResult> Return(int? id)
         {
             if (id == null)
-            {
                 return NotFound();
+
+            var loan = await _context.Loan.Where(loan => loan.LoanId == id).Include("Copy").FirstOrDefaultAsync();
+
+            if(loan.DateReturned != null)
+            {
+                return RedirectToAction("Index");
             }
 
-            var loan = await _context.Loan
-                .FirstOrDefaultAsync(m => m.LoanId == id);
-            if (loan == null)
-            {
-                return NotFound();
-            }
+            loan.Copy.IsLoaned = false;
+            loan.DateReturned = DateTime.Now;
 
-            return View(loan);
+            _context.Update(loan);
+            await _context.SaveChangesAsync();
+
+            return RedirectToAction("Index");
         }
         // Question 6
         // GET: Loans/Create

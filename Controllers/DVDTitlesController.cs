@@ -78,6 +78,8 @@ namespace RopeyDVD.Controllers
             var allDvds = await GetAllDVDSortedByReleaseDate();
             return View(allDvds);
         }
+
+
         public async Task<Dictionary<DVDCopy, DateTime>> LoanedDVD(string memberName)
         {
             var lastMonth = DateTime.Today.AddDays(-31);
@@ -103,6 +105,7 @@ namespace RopeyDVD.Controllers
 
             return dvds;
         }
+
 
         private int GetNumberOfCopiesOnShelves(DVDTitle dvd)
         {

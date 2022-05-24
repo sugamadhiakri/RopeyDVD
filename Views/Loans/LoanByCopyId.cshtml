@@ -1,0 +1,62 @@
+﻿@*
+    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+*@
+@model SearchInt;
+@{
+    Loan loan = (Loan)ViewData["loan"];
+
+}
+
+
+<h1>Search Last Loaned DVD Copy details by it's ID</h1>
+
+
+@using (Html.BeginForm("LoanByCopyId", "Loans"))
+{
+    <div class="input-group">
+        <input asp-for="SearchValue" class="form-control rounded" placeholder="Enter Copy Id" />
+        <button type="submit" class="btn btn-outline-primary">search</button>
+    </div>
+    <span asp-validation-for="SearchValue" class="text-danger"></span>
+
+
+    <div class="text-danger">
+        @Html.ValidationMessage("CustomError")
+    </div>
+
+}
+
+<hr />
+
+
+@if (loan != null)
+{
+    <table class="table">
+        <thead>
+            <tr>
+                <th scope="col">DVD Title</th>
+                <th scope="col">Member</th>
+                <th scope="col">Date Out</th>
+                <th scope="col">Date Due</th>
+                <th scope="col">Loan Status</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <th scope="row">@loan.Copy.DVDTitle.Title</th>
+                <td>@loan.Member.FirstName @loan.Member.LastName</td>
+                <td>@loan.DateOut</td>
+                <td>@loan.DateDue</td>
+                @if (@loan.DateReturned == null)
+                {
+                    <td>On Loan</td>
+                }
+                else
+                {
+                    <td>Returned At @loan.DateReturned</td>
+                }
+            </tr>
+
+        </tbody>
+    </table>
+}

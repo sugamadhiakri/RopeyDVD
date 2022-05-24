@@ -5,11 +5,13 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<h1>Index</h1>
+<h1>Current Loans</h1>
 
 <p>
-    <a asp-action="Create">Create New</a>
+    <a asp-action="Create">Create New</a> 
+    <a asp-action="LoanByCopyId">Search Last Loan Activity Of Copy</a>
 </p>
+
 <table class="table">
     <thead>
         <tr>
@@ -32,7 +34,7 @@
                 Due Date
             </th>
             <th>
-                Returned Date
+                
             </th>
             <th></th>
         </tr>
@@ -58,13 +60,10 @@
             <th>
                 @item.DateDue
             </th>
-                @if(item.DateReturned != null)
-                {
-                    <th>@item.DateReturned</th>
-                } else
-                {
-                    <th>Null</th>
-                }
+             <td>
+                <a asp-action="Return" asp-route-id="@item.LoanId">Return</a>
+            </td>
+
             </tr>
 }
     </tbody>
