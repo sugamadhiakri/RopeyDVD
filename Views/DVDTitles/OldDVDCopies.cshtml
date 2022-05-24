@@ -1,0 +1,36 @@
+﻿@*
+    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+*@
+
+@model IEnumerable<DVDCopy>
+
+@{
+}
+
+<a asp-action="AllDVDs">Back</a>
+@if(@Model != null && @Model.Any())
+    {
+        <a asp-action="DeleteOldDVDCopies">Remove All</a>
+
+        <table class="table">
+          <thead>
+            <tr>
+              <th scope="col">Copy Number</th>
+              <th scope="col">DVD Title</th>
+              <th scope="col">Date Purchased</th>
+            </tr>
+          </thead>
+          <tbody>
+                @foreach(var copy in Model)
+                {
+                    <tr>
+                      <th scope="row">@copy.CopyId</th>
+                      <td>@copy.DVDTitle.Title</td>
+                      <td>@copy.DatePurchased</td>
+                    </tr>
+                }
+          </tbody>
+        </table>
+    } else {
+        <h1>There are NO DVD Copies that are older than one year and currently not on loan.</h1>
+    }

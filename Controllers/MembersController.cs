@@ -31,23 +31,12 @@ namespace RopeyDVD.Controllers
             return View(await _context.Member.Include("MembershipCategory").ToListAsync());
         }
 
-        // GET: Members/Details/5
-        [Authorize(Policy = "AssistantOrAdmin")]
-        public async Task<IActionResult> Details(int? id)
+        public async Task<IActionResult> InactiveMembers()
         {
-            if (id == null)
-            {
-                return NotFound();
-            }
-
-            var member = await _context.Member
-                .FirstOrDefaultAsync(m => m.MemberId == id);
-            if (member == null)
-            {
-                return NotFound();
-            }
-
-            return View(member);
+            var aMonthAgo = DateTime.Now.AddDays(-31);
+            var inactiveMembers = await _context.Member.Include(member => member.Loans).Where(member => member.Loans.All(loan => loan.DateOut < aMonthAgo)).ToListAsync();
+            ViewData["context"] = _context;
+            return View(inactiveMembers);
         }
 
 

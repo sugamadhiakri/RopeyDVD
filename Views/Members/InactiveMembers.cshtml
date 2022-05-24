@@ -1,0 +1,66 @@
+﻿@using RopeyDVD.Data
+@model IEnumerable<RopeyDVD.Models.Member>
+
+@{
+    RopeyDVDContext _context = (RopeyDVDContext)ViewData["context"];
+}
+
+<h1>Members That haven't loaned any DVDs since last 31 days.</h1>
+
+<p>
+    <a asp-action="Index">Back</a>
+</p>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                First Name
+            </th>
+            <th>
+                Last Name
+            </th>
+            <th>
+                Address
+            </th>
+            <th>
+                Date Out
+            </th>
+            <th>
+                DVD Title
+            </th>
+            <th>
+                Days
+            </th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var member in Model)
+        {
+
+            var lastLoanDateOut = member.Loans.Max(loan => loan.DateOut);
+            var lastLoan = member.Loans.Where(loan => loan.DateDue == lastLoanDateOut).FirstOrDefault();
+            var days = lastLoanDateOut - DateTime.Now;
+
+            <tr>
+                <td>
+                    @member.FirstName
+                </td>
+                <td>
+                    @member.LastName
+
+                </td>
+                <td>
+                    @member.Address
+                </td>
+                <td>
+                    @lastLoanDateOut
+                </td>
+
+                <td>@lastLoan.Copy.DVDTitle.Title</td>
+
+                <td>@days.Days</td>
+
+            </tr>
+        }
+    </tbody>
+</table>

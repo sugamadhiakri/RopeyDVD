@@ -79,6 +79,34 @@ namespace RopeyDVD.Controllers
             return View(allDvds);
         }
 
+        // Question 10
+        [Authorize(Policy = "AssistantOrAdmin")]
+        public async Task<IActionResult> OldDVDCopies()
+        {
+
+            var aYearAgo = DateTime.Today.AddDays(-365);
+
+            var OldDVDCopies = await _context.DVDCopy.Include("DVDTitle").Where(copy => copy.DatePurchased < aYearAgo && !copy.IsLoaned).ToListAsync();
+
+            return View(OldDVDCopies);
+        }
+
+        [Authorize(Policy = "AssistantOrAdmin")]
+        public async Task<IActionResult> DeleteOldDVDCopies()
+        {
+            var aYearAgo = DateTime.Today.AddDays(-365);
+
+            var OldDVDCopies = await _context.DVDCopy.Include("DVDTitle").Where(copy => copy.DatePurchased < aYearAgo && !copy.IsLoaned).ToListAsync();
+
+            foreach(var copy in OldDVDCopies)
+            {
+                _context.Remove(copy);
+            }
+
+            await _context.SaveChangesAsync();
+
+            return RedirectToAction("OldDVDCopies");
+        }
 
         public async Task<Dictionary<DVDCopy, DateTime>> LoanedDVD(string memberName)
         {

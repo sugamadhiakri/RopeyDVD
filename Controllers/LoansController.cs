@@ -106,12 +106,17 @@ namespace RopeyDVD.Controllers
                     ModelState.AddModelError("CustomError", "This member cannot loan DVDs. Already has maximum limit.");
                     return View(loanInput);
                 }
+
                 // Check if the copy is available
                 var dvdCopy = await _context.DVDCopy.Include(copy => copy.DVDTitle).ThenInclude(title => title.Category).FirstAsync();
                 if (dvdCopy == null)
                 {
                     ModelState.AddModelError("CustomError", "DVD Copy with this ID doesn't exist.");
                     return View(loanInput);
+                }
+                if (dvdCopy.IsLoaned)
+                {
+                    ModelState.AddModelError("CustomError", "This DVD Copy is already loaned.");
                 }
 
                 // check if the dvd is age restricted
@@ -138,11 +143,14 @@ namespace RopeyDVD.Controllers
 
                 try
                 {
-                    await _context.Loan.AddAsync(newLoan);
-                    await _context.Database.ExecuteSqlRawAsync("SET IDENTITY_INSERT dbo.Loan ON;");
+                    _context.Database.ExecuteSqlRaw("SET IDENTITY_INSERT ropey.dbo.Loan ON;");
                     await _context.SaveChangesAsync();
-                    await _context.Database.ExecuteSqlRawAsync("SET IDENTITY_INSERT dbo.Loan OFF;");
+                    _context.Add(newLoan);
+                    await _context.SaveChangesAsync();
+                    _context.Database.ExecuteSqlRaw("SET IDENTITY_INSERT ropey.dbo.Loan OFF;");
+                    await _context.SaveChangesAsync();
                 }
+
                 catch (Exception ex)
                 {
                     ModelState.AddModelError("CustomError", ex.Message);
